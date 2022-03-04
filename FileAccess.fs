@@ -1,11 +1,11 @@
 ﻿namespace Inventory
 
+open System
 open System.IO
 
 module FileAccess =
 
-    [<Literal>]
-    let private directory = @"C:\Users\const\"
+    let private directory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
     [<Literal>]
     let private filename = "inventory.json"
