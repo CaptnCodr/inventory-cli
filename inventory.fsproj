@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>inventory</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FileAccess.fs" />
+    <Compile Include="Arguments.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <Import Project=".paket\Paket.Restore.targets" />
+</Project>
