@@ -14,12 +14,10 @@ module Program =
         | [ Item _ ] -> "Item"
         | [ Items ] -> "Items"
 
-        | _ -> parser.PrintUsage()
+        | _ -> FileAccess.readFile
     
     [<EntryPoint>]
     let main ([<ParamArray>] argv: string[]): int =
-
-        do checkInventoryFile
 
         try 
             (ArgumentParser.Create<CliArguments>(), argv)

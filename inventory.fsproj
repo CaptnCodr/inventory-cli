@@ -9,12 +9,11 @@
     <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="Data\sample.csv" />
+    <Compile Include="InventoryTypes.fs" />
     <Compile Include="FileAccess.fs" />
     <Compile Include="Arguments.fs" />
     <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project=".paket\Paket.Restore.targets" />
 </Project>
