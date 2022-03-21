@@ -21,9 +21,15 @@ module FileAccess =
         |> String.concat Environment.NewLine
 
     let appendItem (data: InventoryItem) =
+        let items' = fullPath |> InventoryTypes.Inventory.Load |> fun file -> file.Filter(fun item -> item.Ean = data.Ean).Rows
+        let flattened = items' |> Seq.toArray |> Array.append [| InventoryTypes.Inventory.Row(data.Ean, data.Quantity, data.Description) |]
+
+        let newItem = InventoryTypes.Inventory.Row(flattened.[0].Ean, flattened |> Array.map (fun r -> r.Qty) |> Array.sum, flattened.[0].Description)
+
         fullPath
         |> InventoryTypes.Inventory.Load 
-        |> fun i -> i.Append [ Inventory.Row(data.Ean, data.Quantity, data.Description) ]
+        |> fun file -> file.Filter (fun t -> t.Ean <> data.Ean)
+        |> fun i -> i.Append [ newItem ] 
         |> fun mod' -> mod'.Save fullPath
 
         $"{data.Ean} - {data.Quantity} - {data.Description} added!"
