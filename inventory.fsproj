@@ -7,11 +7,12 @@
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>true</PublishTrimmed>
+    <Version>0.0.0.5</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Data\sample.csv" />
     <Compile Include="InventoryTypes.fs" />
-    <Compile Include="FileAccess.fs" />
+    <Compile Include="InventoryCommands.fs" />
     <Compile Include="Arguments.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
