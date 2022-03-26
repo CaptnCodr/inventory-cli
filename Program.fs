@@ -14,7 +14,7 @@ module Program =
         | [ Item i ] -> 
 
             match i.GetAllResults() with 
-            | [ Add a ] -> 
+            | [ ItemArgs.Add a ] -> 
                 if a.Contains (InventoryItemArgs.Ean) then
 
                     let ean = a.GetResult(InventoryItemArgs.Ean)
@@ -31,26 +31,39 @@ module Program =
                         |> fun q -> (0, q)
                         ||> Option.defaultValue
 
-                    { Ean = ean; Description = desc; Quantity = qty } |> InventoryCommands.appendItem 
+                    { Ean = ean; Description = desc; Quantity = qty } |> ItemCommands.appendItem 
                 else
                     parser.PrintUsage()
-            | [ Edit e ] -> 
-                if e.Contains (InventoryItemArgs.Ean) then
-                    (e.GetResult(InventoryItemArgs.Ean), e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id, e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id) 
-                    |||> InventoryCommands.editItem 
-                else
-                    parser.PrintUsage()
-            | [ Delete d ] -> 
-                d |> InventoryCommands.deleteItem
+            | [ ItemArgs.Edit e ] -> 
+                (e.GetResult(InventoryItemArgs.Ean), e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id, e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id) 
+                |||> ItemCommands.editItem 
+            | [ ItemArgs.Delete d ] -> 
+                d |> ItemCommands.deleteItem
 
             | [ Increase e ] ->
-                e |> InventoryCommands.increaseDecreaseQty +1
+                (+1, e) ||> ItemCommands.increaseDecreaseQty
                 
             | [ Decrease e ] ->
-                e |> InventoryCommands.increaseDecreaseQty -1
+                (-1, e) ||> ItemCommands.increaseDecreaseQty
+
+            | [ ItemArgs.List ] ->
+                ItemCommands.listItems()
 
             | _ -> parser.PrintUsage()
-        | [ Items ] -> InventoryCommands.getAllItems()
+
+        | [ Tag t ] ->
+            
+            match t.GetAllResults() with 
+            | [ TagArgs.Add a ] -> 
+                (a.GetResult(TagItemArgs.Ean), a.GetResult(TagItemArgs.Name)) ||> TagCommands.addTagToItem
+
+            | [ TagArgs.Remove r ] ->
+                (r.GetResult(TagItemArgs.Ean), r.GetResult(TagItemArgs.Name)) ||> TagCommands.removeTagFromItem
+
+            | [ TagArgs.List ] -> 
+                TagCommands.listTags()
+
+            | _ -> parser.PrintUsage()
 
         | [ Version ] -> Assembly.GetExecutingAssembly().GetName().Version |> string
         | _ -> parser.PrintUsage()
