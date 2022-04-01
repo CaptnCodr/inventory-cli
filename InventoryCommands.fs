@@ -114,6 +114,14 @@ module InventoryCommands =
 
             $"Tag {tag} added to item {item.Ean}."
 
+        let showItemsWithTag (tag: string) =
+            loadInventory()
+            |> fun r -> r.Rows
+            |> Seq.filter (fun i -> i.Tags.Split(",") 
+                                    |> Array.exists (fun e -> e = tag))
+            |> Seq.map (fun i -> $"({i.Ean}): {i.Qty} of {i.Description}")
+            |> String.concat Environment.NewLine
+
         let removeTagFromItem (ean: string) (tag: string) =
             let item = ean |> filterItemWithMatchingEan 
 

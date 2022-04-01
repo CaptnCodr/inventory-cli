@@ -48,14 +48,14 @@ module Arguments =
     type TagArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-a")>] Add of ParseResults<TagItemArgs>
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-r")>] Remove of ParseResults<TagItemArgs>
-        | [<CliPrefix(CliPrefix.None); AltCommandLine("-l")>] List
+        | [<CliPrefix(CliPrefix.None); AltCommandLine("-l")>] List of tag: string option
         
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
                 | Add _ -> "Add Tag to item with EAN."
                 | Remove _ -> "Remove Tag from item with EAN."
-                | List -> "Show all existing tags."
+                | List _ -> "Show all existing tags."
 
     [<DisableHelpFlags>]
     type CliArguments =

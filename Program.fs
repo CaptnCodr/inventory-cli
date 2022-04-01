@@ -37,6 +37,7 @@ module Program =
             | [ ItemArgs.Edit e ] -> 
                 (e.GetResult(InventoryItemArgs.Ean), e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id, e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id) 
                 |||> ItemCommands.editItem 
+
             | [ ItemArgs.Delete d ] -> 
                 d |> ItemCommands.deleteItem
 
@@ -60,12 +61,15 @@ module Program =
             | [ TagArgs.Remove r ] ->
                 (r.GetResult(TagItemArgs.Ean), r.GetResult(TagItemArgs.Name)) ||> TagCommands.removeTagFromItem
 
-            | [ TagArgs.List ] -> 
-                TagCommands.listTags()
+            | [ TagArgs.List t ] -> 
+                match t with 
+                | Some t' -> t' |> TagCommands.showItemsWithTag
+                | None -> TagCommands.listTags()
 
             | _ -> parser.PrintUsage()
 
         | [ Version ] -> Assembly.GetExecutingAssembly().GetName().Version |> string
+
         | _ -> parser.PrintUsage()
     
     [<EntryPoint>]
