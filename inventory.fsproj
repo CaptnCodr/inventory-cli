@@ -13,8 +13,14 @@
     <None Include="Data\sample.csv" />
     <Compile Include="Arguments.fs" />
     <Compile Include="InventoryTypes.fs" />
+    <Compile Include="Resources.fs" />
     <Compile Include="InventoryCommands.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project=".paket\Paket.Restore.targets" />
 </Project>

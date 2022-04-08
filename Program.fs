@@ -63,7 +63,7 @@ module Program =
 
             | [ TagArgs.List t ] -> 
                 match t with 
-                | Some t' -> t' |> TagCommands.showItemsWithTag
+                | Some t' -> t' |> TagCommands.listItemsWithTag
                 | None -> TagCommands.listTags()
 
             | _ -> parser.PrintUsage()

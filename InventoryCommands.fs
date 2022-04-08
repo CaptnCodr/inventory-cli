@@ -3,6 +3,7 @@
 open System
 open System.IO
 open InventoryTypes
+open Resources
 open FSharp.Data.Runtime
 
 [<AutoOpen>]
@@ -40,14 +41,12 @@ module InventoryCommands =
         |> saveInventory
 
     let filterItemWithMatchingEan (ean: string) =
-        (loadInventory() |> filterWithEan ean).Rows |> Seq.head
+        loadInventory() 
+        |> filterWithEan ean
+        |> fun r -> r.Rows 
+        |> Seq.head
     
     module ItemCommands = 
-
-        let listItems () =
-            loadInventory().Rows
-            |> Seq.map (fun r -> $"{r.Qty} of {r.Description} ({r.Ean}) with tags: {r.Tags}")
-            |> String.concat Environment.NewLine
 
         let appendItem (data: InventoryItem) =
             let flattened = 
@@ -59,7 +58,12 @@ module InventoryCommands =
             |> fun i -> (data.Ean, i) 
             ||> filterItemSaveWithNew
 
-            $"{data.Ean} - {data.Quantity} - {data.Description} added!"
+            ItemCommand_ItemAdded.FormattedString(data.Ean, data.Quantity, data.Description)
+
+        let listItems () =
+            loadInventory().Rows
+            |> Seq.map (fun r -> ItemCommand_ItemsList.FormattedString(r.Qty, r.Description, r.Ean, r.Tags))
+            |> String.concat Environment.NewLine
 
         let editItem (ean: string) (qty: int option) (description: string option) =
             let item' = ean |> filterItemWithMatchingEan
@@ -68,7 +72,16 @@ module InventoryCommands =
             |> fun i -> (item'.Ean, i) 
             ||> filterItemSaveWithNew
 
-            $"{item'.Qty} of {item'.Description} with EAN: {item'.Ean} edited!"
+            ItemCommand_ItemEdited.FormattedString(item'.Qty, item'.Description, item'.Ean)
+            
+        let increaseDecreaseQty (change: int) (ean: string) =
+            let item' = ean |> filterItemWithMatchingEan
+                    
+            createItem item'.Ean (item'.Qty + change) item'.Description item'.Tags
+            |> fun i -> (item'.Ean, i) 
+            ||> filterItemSaveWithNew
+
+            ItemCommand_IncreaseDecrease.FormattedString(item'.Ean, change)
 
         let deleteItem (ean: string) =
             let item' = ean |> filterItemWithMatchingEan
@@ -77,16 +90,7 @@ module InventoryCommands =
             |> filterWithoutEan item'.Ean
             |> saveInventory
 
-            $"{item'.Description} with EAN: {item'.Ean} deleted!"
-
-        let increaseDecreaseQty (change: int) (ean: string) =
-            let item' = ean |> filterItemWithMatchingEan
-        
-            createItem item'.Ean (item'.Qty + change) item'.Description item'.Tags
-            |> fun i -> (item'.Ean, i) 
-            ||> filterItemSaveWithNew
-        
-            $"Item {item'.Ean} changed by {change}!"
+            ItemCommand_ItemDeleted.FormattedString(item'.Description, item'.Ean)
        
     module TagCommands =
         
@@ -112,14 +116,14 @@ module InventoryCommands =
             |> fun i -> (item.Ean, i) 
             ||> filterItemSaveWithNew
 
-            $"Tag {tag} added to item {item.Ean}."
+            TagCommand_AddedTagToItem.FormattedString(tag, item.Ean)
 
-        let showItemsWithTag (tag: string) =
+        let listItemsWithTag (tag: string) =
             loadInventory()
             |> fun r -> r.Rows
             |> Seq.filter (fun i -> i.Tags.Split(",") 
                                     |> Array.exists (fun e -> e = tag))
-            |> Seq.map (fun i -> $"({i.Ean}): {i.Qty} of {i.Description}")
+            |> Seq.map (fun i -> TagCommand_ItemsWithTag.FormattedString(i.Ean, i.Qty, i.Description))
             |> String.concat Environment.NewLine
 
         let removeTagFromItem (ean: string) (tag: string) =
@@ -135,4 +139,4 @@ module InventoryCommands =
             |> fun i -> (item.Ean, i) 
             ||> filterItemSaveWithNew
 
-            $"Tag {tag} removed from item {item.Ean}."
+            TagCommand_RemovedTagFromItem.FormattedString(tag, item.Ean)
