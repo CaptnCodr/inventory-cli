@@ -1,5 +1,6 @@
 ﻿namespace Inventory
 
+open System
 open System.Reflection
 open System.Resources
 
@@ -24,6 +25,5 @@ module Resources =
             this.ToString() 
             |> ResourceManager(ResourceFile, Assembly.GetExecutingAssembly()).GetString
 
-        member this.FormattedString ([<System.ParamArray>] args) =
-            this.ResourceString
-            |> fun s -> (s, args) |> System.String.Format
+        member this.FormattedString ([<ParamArray>] args) =
+            (this.ResourceString, args) |> String.Format

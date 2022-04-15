@@ -11,4 +11,3 @@ module InventoryTypes =
         Description: string
         Quantity: int
     }
-

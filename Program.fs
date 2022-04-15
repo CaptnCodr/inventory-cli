@@ -22,13 +22,13 @@ module Program =
                     let desc = 
                         a.TryGetResult(InventoryItemArgs.Description) 
                         |> Option.bind id 
-                        |> fun d -> ("", d) 
+                        |> (-&-) ""
                         ||> Option.defaultValue
 
                     let qty = 
                         a.TryGetResult (InventoryItemArgs.Quantity)
                         |> Option.bind id
-                        |> fun q -> (0, q)
+                        |> (-&-) 0
                         ||> Option.defaultValue
 
                     { Ean = ean; Description = desc; Quantity = qty } |> ItemCommands.appendItem 
