@@ -20,6 +20,8 @@ module Resources =
         | TagCommand_AddedTagToItem
         | TagCommand_ItemsWithTag
         | TagCommand_RemovedTagFromItem
+
+        | SettingCommand_PathSet
         
         member this.ResourceString = 
             this.ToString() 

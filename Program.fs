@@ -3,7 +3,6 @@
 open System
 open Argu
 open Arguments
-open InventoryTypes
 open System.Reflection
 
 module Program =
@@ -65,6 +64,17 @@ module Program =
                 match t with 
                 | Some t' -> t' |> TagCommands.listItemsWithTag
                 | None -> TagCommands.listTags()
+
+            | _ -> parser.PrintUsage()
+
+        | [ Settings s ] ->
+            
+            match s.GetAllResults() with 
+            | [ SettingsArgs.SetPath s ] -> 
+                s |> Settings.setInventoryPath
+                Resources.SettingCommand_PathSet.FormattedString(s)
+
+            | [ SettingsArgs.GetPath ] -> Settings.getInventoryPath()
 
             | _ -> parser.PrintUsage()
 

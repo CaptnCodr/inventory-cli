@@ -1,42 +1,38 @@
 ﻿namespace Inventory
 
 open System
-open System.IO
-open InventoryTypes
 open Resources
+open FSharp.Data
 open FSharp.Data.Runtime
 
-[<AutoOpen>]
-module InventoryCommands =
-    
-    let private directory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+type Inventory = CsvProvider<"./Data/sample.csv", Separators=";", ResolutionFolder=__SOURCE_DIRECTORY__>
 
-    [<Literal>]
-    let private filename = "inventory.csv"
+type InventoryItem = { Ean: string; Description: string; Quantity: int }
+
+[<AutoOpen>]
+module Inventory =
     
     let inline (-&-) f s = (f, s)
 
-    let fullPath = Path.Combine(directory, filename)
-
     let loadInventory () =
-        fullPath |> InventoryTypes.Inventory.Load
+        Settings.getInventoryPath() |> Inventory.Load
 
     let saveInventory (inv: CsvFile<'a>) =
-        inv.Save fullPath
+        Settings.getInventoryPath() |> inv.Save
 
-    let addItem (item: InventoryTypes.Inventory.Row) (inv: CsvFile<InventoryTypes.Inventory.Row>) =
+    let addItem (item: Inventory.Row) (inv: CsvFile<Inventory.Row>) =
         inv.Append [ item ]
 
     let createItem ean quantity description tags =
-        InventoryTypes.Inventory.Row(ean, quantity, description, tags)
+        Inventory.Row(ean, quantity, description, tags)
 
-    let filterWithEan ean (provider: InventoryTypes.Inventory) =
+    let filterWithEan ean (provider: Inventory) =
         provider.Filter(fun item -> item.Ean = ean)
 
-    let filterWithoutEan ean (provider: InventoryTypes.Inventory) =
+    let filterWithoutEan ean (provider: Inventory) =
         provider.Filter(fun item -> item.Ean <> ean)
 
-    let filterItemSaveWithNew ean (item: InventoryTypes.Inventory.Row) =
+    let filterItemSaveWithNew ean (item: Inventory.Row) =
         loadInventory()
         |> filterWithoutEan ean
         |> addItem item
@@ -54,7 +50,7 @@ module InventoryCommands =
             let flattened = 
                 (loadInventory() |> filterWithEan data.Ean).Rows 
                 |> Seq.toArray 
-                |> Array.append [| InventoryTypes.Inventory.Row(data.Ean, data.Quantity, data.Description, "") |]
+                |> Array.append [| Inventory.Row(data.Ean, data.Quantity, data.Description, "") |]
 
             createItem flattened.[0].Ean (flattened |> Array.map (fun r -> r.Qty) |> Array.sum) flattened.[0].Description flattened.[0].Tags
             |> (-&-) data.Ean

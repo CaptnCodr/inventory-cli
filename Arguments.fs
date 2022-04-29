@@ -57,12 +57,21 @@ module Arguments =
                 | Remove _ -> "Remove Tag from item with EAN."
                 | List _ -> "Show all existing tags."
 
+    type SettingsArgs =
+        | [<CliPrefix(CliPrefix.None)>] SetPath of string
+        | [<CliPrefix(CliPrefix.None)>] GetPath
+
+        interface IArgParserTemplate with
+            member this.Usage =
+                match this with 
+                | SetPath _ -> "Sets the path to the inventory csv file (with filename)."
+                | GetPath -> "Gets the path to the inventory csv file that was set."
+
     [<DisableHelpFlags>]
     type CliArguments =
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-i")>] Item of ParseResults<ItemArgs>
-
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-t")>] Tag of ParseResults<TagArgs>
-
+        | [<CliPrefix(CliPrefix.None);AltCommandLine("-s")>] Settings of ParseResults<SettingsArgs>
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-v")>] Version
         
         interface IArgParserTemplate with
@@ -70,4 +79,5 @@ module Arguments =
                 match this with 
                 | Item _ -> "Command of item."
                 | Tag _ ->  "Command of tags."
+                | Settings _ -> "Command of settings."
                 | Version -> "Displays the version of 'Inventory'."

@@ -122,4 +122,7 @@
   <data name="TagCommand_RemovedTagFromItem" xml:space="preserve">
     <value>Tag '{0}' removed from item with EAN: '{1}'!</value>
   </data>
+  <data name="SettingCommand_PathSet" xml:space="preserve">
+    <value>Inventory is now at: '{0}'</value>
+  </data>
 </root>
