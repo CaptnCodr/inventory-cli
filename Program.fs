@@ -33,6 +33,7 @@ module Program =
                     { Ean = ean; Description = desc; Quantity = qty } |> ItemCommands.appendItem 
                 else
                     parser.PrintUsage()
+
             | [ ItemArgs.Edit e ] -> 
                 (e.GetResult(InventoryItemArgs.Ean), e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id, e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id) 
                 |||> ItemCommands.editItem 
