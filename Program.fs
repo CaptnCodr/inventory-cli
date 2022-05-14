@@ -8,8 +8,7 @@ open System.Reflection
 module Program =
     
     let runCommands (parser: ArgumentParser<CliArguments>) (args: string array) =
-        let parsingResult = parser.Parse args
-        match parsingResult.GetAllResults() with
+        match (parser.Parse args).GetAllResults() with
         | [ Item i ] -> 
 
             match i.GetAllResults() with 

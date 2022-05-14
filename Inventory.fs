@@ -12,7 +12,21 @@ type InventoryItem = { Ean: string; Description: string; Quantity: int }
 [<AutoOpen>]
 module Inventory =
     
+    /// <summary>
+    /// Tupelizes two values.
+    /// </summary>
+    /// <param name="f">First element in Tuple.</param>
+    /// <param name="s">Second element in Tuple.</param>
     let inline (-&-) f s = (f, s)
+    
+    /// <summary>
+    /// Splits the quadruple and passes it into the given function.
+    /// </summary>
+    /// <param name="q">Tuple of 4 elements (quadruple).</param>
+    /// <param name="f">Function that takes 4 arguments.</param>
+    let inline (||||>) q f = 
+        let (a, b, c, d) = q
+        f a b c d
 
     let loadInventory () =
         Settings.getInventoryPath() |> Inventory.Load
@@ -52,7 +66,8 @@ module Inventory =
                 |> Seq.toArray 
                 |> Array.append [| Inventory.Row(data.Ean, data.Quantity, data.Description, "") |]
 
-            createItem flattened.[0].Ean (flattened |> Array.map (fun r -> r.Qty) |> Array.sum) flattened.[0].Description flattened.[0].Tags
+            (flattened.[0].Ean, (flattened |> Array.map (fun r -> r.Qty) |> Array.sum), flattened.[0].Description, flattened.[0].Tags)
+            ||||> createItem
             |> (-&-) data.Ean
             ||> filterItemSaveWithNew
 
@@ -65,17 +80,19 @@ module Inventory =
 
         let editItem (ean: string) (qty: int option) (description: string option) =
             let item = ean |> filterItemWithMatchingEan
-        
-            createItem item.Ean (qty |> Option.defaultValue item.Qty) (description |> Option.defaultValue item.Description) item.Tags
-            |> (-&-) item.Ean
-            ||> filterItemSaveWithNew
+
+            (item.Ean, (qty |> Option.defaultValue item.Qty), (description |> Option.defaultValue item.Description), item.Tags)
+            ||||> createItem
+            |>    (-&-) item.Ean
+            ||>   filterItemSaveWithNew
 
             ItemCommand_ItemEdited.FormattedString(item.Qty, item.Description, item.Ean)
             
         let increaseDecreaseQty (change: int) (ean: string) =
             let item = ean |> filterItemWithMatchingEan
-                    
-            createItem item.Ean (item.Qty + change) item.Description item.Tags
+
+            (item.Ean, (item.Qty + change), item.Description, item.Tags) 
+            ||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
@@ -83,13 +100,13 @@ module Inventory =
 
         let deleteItem (ean: string) =
             let item = ean |> filterItemWithMatchingEan
-        
+
             loadInventory()
             |> filterWithoutEan item.Ean
             |> saveInventory
 
             ItemCommand_ItemDeleted.FormattedString(item.Description, item.Ean)
-       
+
     module TagCommands =
         
         let listTags () =
@@ -110,7 +127,8 @@ module Inventory =
                 |> Array.distinct
                 |> String.concat ","
 
-            createItem item.Ean item.Qty item.Description itemTags
+            (item.Ean, item.Qty, item.Description, itemTags)
+            ||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
@@ -133,7 +151,8 @@ module Inventory =
                 |> Array.filter (fun t -> t <> tag)
                 |> String.concat ","
             
-            createItem item.Ean item.Qty item.Description itemTags
+            (item.Ean, item.Qty, item.Description, itemTags)
+            ||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
