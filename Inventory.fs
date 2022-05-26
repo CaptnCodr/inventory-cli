@@ -31,7 +31,7 @@ module Inventory =
     let loadInventory () =
         Settings.getInventoryPath() |> Inventory.Load
 
-    let saveInventory (inv: CsvFile<'a>) =
+    let saveInventory (inv: CsvFile<Inventory.Row>) =
         Settings.getInventoryPath() |> inv.Save
 
     let addItem (item: Inventory.Row) (inv: CsvFile<Inventory.Row>) =
@@ -68,8 +68,8 @@ module Inventory =
 
             (flattened.[0].Ean, (flattened |> Array.map (fun r -> r.Qty) |> Array.sum), flattened.[0].Description, flattened.[0].Tags)
             ||||> createItem
-            |> (-&-) data.Ean
-            ||> filterItemSaveWithNew
+            |>    (-&-) data.Ean
+            ||>   filterItemSaveWithNew
 
             ItemCommand_ItemAdded.FormattedString(data.Ean, data.Quantity, data.Description)
 
@@ -93,8 +93,8 @@ module Inventory =
 
             (item.Ean, (item.Qty + change), item.Description, item.Tags) 
             ||||> createItem
-            |> (-&-) item.Ean
-            ||> filterItemSaveWithNew
+            |>    (-&-) item.Ean
+            ||>   filterItemSaveWithNew
 
             ItemCommand_IncreaseDecrease.FormattedString(item.Ean, change)
 
@@ -129,8 +129,8 @@ module Inventory =
 
             (item.Ean, item.Qty, item.Description, itemTags)
             ||||> createItem
-            |> (-&-) item.Ean
-            ||> filterItemSaveWithNew
+            |>    (-&-) item.Ean
+            ||>   filterItemSaveWithNew
 
             TagCommand_AddedTagToItem.FormattedString(tag, item.Ean)
 
@@ -153,7 +153,7 @@ module Inventory =
             
             (item.Ean, item.Qty, item.Description, itemTags)
             ||||> createItem
-            |> (-&-) item.Ean
-            ||> filterItemSaveWithNew
+            |>    (-&-) item.Ean
+            ||>   filterItemSaveWithNew
 
             TagCommand_RemovedTagFromItem.FormattedString(tag, item.Ean)
