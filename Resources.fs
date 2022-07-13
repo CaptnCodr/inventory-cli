@@ -7,7 +7,7 @@ open System.Resources
 module Resources =
 
     [<Literal>]
-    let ResourceFile = "inventory.Resources.Strings"
+    let ResourceFile = "inventory-cli.Resources.Strings"
 
     type Resource =
 
