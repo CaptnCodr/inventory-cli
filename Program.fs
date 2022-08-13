@@ -6,7 +6,7 @@ open Arguments
 open System.Reflection
 
 module Program =
-    
+
     let runCommands (parser: ArgumentParser<CliArguments>) (args: string array) =
         match (parser.Parse args).GetAllResults() with
         | [ Item i ] -> 
@@ -17,25 +17,34 @@ module Program =
 
                     let ean = a.GetResult(InventoryItemArgs.Ean)
                 
-                    let desc = 
+                    let desc =
                         a.TryGetResult(InventoryItemArgs.Description) 
                         |> Option.bind id 
                         |> (-&-) ""
                         ||> Option.defaultValue
 
-                    let qty = 
+                    let qty =
                         a.TryGetResult (InventoryItemArgs.Quantity)
                         |> Option.bind id
                         |> (-&-) 0
                         ||> Option.defaultValue
 
-                    { Ean = ean; Description = desc; Quantity = qty } |> ItemCommands.appendItem 
+                    let unit =
+                        a.TryGetResult(InventoryItemArgs.Unit)
+                        |> Option.bind id
+                        |> (-&-) ""
+                        ||> Option.defaultValue
+
+                    { Ean = ean; Description = desc; Quantity = qty; Unit = unit } |> ItemCommands.appendItem
                 else
                     parser.PrintUsage()
 
             | [ ItemArgs.Edit e ] -> 
-                (e.GetResult(InventoryItemArgs.Ean), e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id, e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id) 
-                |||> ItemCommands.editItem 
+                (e.GetResult(InventoryItemArgs.Ean),
+                    e.TryGetResult (InventoryItemArgs.Quantity) |> Option.bind id,
+                    e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id,
+                    e.TryGetResult(InventoryItemArgs.Unit) |> Option.bind id)
+                ||||> ItemCommands.editItem
 
             | [ ItemArgs.Delete d ] -> 
                 d |> ItemCommands.deleteItem

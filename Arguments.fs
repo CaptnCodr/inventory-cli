@@ -8,6 +8,7 @@ module Arguments =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-e")>] Ean of string
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-q")>] Quantity of int option
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-desc")>] Description of string option
+        | [<CliPrefix(CliPrefix.None); AltCommandLine("-u")>] Unit of string option
 
         interface IArgParserTemplate with
             member this.Usage =
@@ -15,6 +16,7 @@ module Arguments =
                 | Ean _ -> "EAN of that item"
                 | Quantity _ -> "Quantity of that item."
                 | Description _ -> "Description of that item"
+                | Unit _ -> "Unit/s of that item"
 
     type ItemArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-a")>] Add of ParseResults<InventoryItemArgs>
