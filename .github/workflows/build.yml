@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: [6.0.303]
+
+    - name: Install local tools
+      run: dotnet tool restore
+
+    - name: Paket Restore
+      run: dotnet paket restore
