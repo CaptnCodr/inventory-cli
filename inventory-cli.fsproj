@@ -12,11 +12,19 @@
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
     <None Include="Data\sample.csv" />
+    <None Include="paket.dependencies" />
+    <None Include="paket.lock" />
+    <None Include="paket.references" />
     <Compile Include="Arguments.fs" />
     <Compile Include="Resources.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Inventory.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Core" Version="6.0.5" />
+    <PackageReference Include="FSharp.Data" Version="4.2.10" />
+    <PackageReference Include="Argu" Version="6.1.1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Strings.resx">

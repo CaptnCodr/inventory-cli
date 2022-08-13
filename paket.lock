@@ -4,9 +4,9 @@ NUGET
       FSharp.Core (>= 4.3.2) - restriction: >= netstandard2.0
       System.Configuration.ConfigurationManager (>= 4.4) - restriction: >= netstandard2.0
     FSharp.Core (6.0.5)
-    FSharp.Data (4.2.9)
+    FSharp.Data (4.2.10)
       FSharp.Core (>= 5.0.1) - restriction: >= netstandard2.0
-    Microsoft.NETCore.Platforms (6.0.4) - restriction: || (&& (>= net461) (>= netcoreapp2.0)) (&& (>= net461) (>= netcoreapp2.1)) (&& (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (>= netcoreapp2.1) (< netcoreapp3.0))
+    Microsoft.NETCore.Platforms (6.0.5) - restriction: || (&& (>= net461) (>= netcoreapp2.0)) (&& (>= net461) (>= netcoreapp2.1)) (&& (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (>= netcoreapp2.1) (< netcoreapp3.0))
     Microsoft.Win32.SystemEvents (6.0.1) - restriction: >= netcoreapp3.1
     System.Buffers (4.5.1) - restriction: || (&& (>= monoandroid) (< netstandard1.1) (>= netstandard2.0)) (&& (< monoandroid) (< netstandard1.1) (>= netstandard2.0) (< win8)) (&& (>= monotouch) (>= netstandard2.0)) (&& (< net45) (< netcoreapp2.0) (>= netstandard2.0)) (&& (< net6.0) (>= netstandard2.0) (>= xamarintvos)) (&& (< net6.0) (>= netstandard2.0) (>= xamarinwatchos)) (&& (< net6.0) (>= xamarinios)) (&& (< net6.0) (>= xamarinmac)) (&& (< netstandard1.1) (>= netstandard2.0) (>= win8))
     System.Configuration.ConfigurationManager (6.0) - restriction: >= netstandard2.0
