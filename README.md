@@ -1,3 +1,3 @@
-# Inventory-CLI
+# Inventory CLI
 
-Save your products in a list powered by your CLI.
+Save your products in a list using your CLI.
