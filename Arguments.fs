@@ -75,6 +75,7 @@ module Arguments =
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-t")>] Tag of ParseResults<TagArgs>
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-s")>] Settings of ParseResults<SettingsArgs>
         | [<CliPrefix(CliPrefix.None);AltCommandLine("-v")>] Version
+        | [<CliPrefix(CliPrefix.None);AltCommandLine("-h")>] Help
         
         interface IArgParserTemplate with
             member this.Usage =
@@ -83,3 +84,4 @@ module Arguments =
                 | Tag _ ->  "Command of tags."
                 | Settings _ -> "Command of settings."
                 | Version -> "Displays the version of 'Inventory'."
+                | Help -> "Displays this help."
