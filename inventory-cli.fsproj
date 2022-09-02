@@ -15,8 +15,8 @@
     <None Include="paket.dependencies" />
     <None Include="paket.lock" />
     <None Include="paket.references" />
-    <Compile Include="Arguments.fs" />
     <Compile Include="Resources.fs" />
+    <Compile Include="Arguments.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Inventory.fs" />
     <Compile Include="Program.fs" />
