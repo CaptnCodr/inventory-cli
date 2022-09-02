@@ -1,6 +1,7 @@
 ﻿namespace Inventory
 
 open Argu
+open Resources
 
 module Arguments =
 
@@ -13,10 +14,10 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | Ean _ -> "EAN of that item"
-                | Quantity _ -> "Quantity of that item."
-                | Description _ -> "Description of that item"
-                | Unit _ -> "Unit/s of that item"
+                | Ean _ -> Resource.Arguments_EAN.ResourceString
+                | Quantity _ -> Resource.Arguments_Quantity.ResourceString
+                | Description _ -> Resource.Arguments_Description.ResourceString
+                | Unit _ -> Resource.Arguments_Unit.ResourceString
 
     type ItemArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-a")>] Add of ParseResults<InventoryItemArgs>
@@ -29,13 +30,12 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | Add _ -> "Adds an item."
-                | Edit _ -> "Edits an item."
-                | Delete _ -> "Deletes the product with the given EAN."
-                | Increase _ -> "Increases product's quantity by 1."
-                | Decrease _ -> "Decreases product's quantity by 1."
-
-                | List -> "Show all items."
+                | Add _ -> Resource.Arguments_ItemAdd.ResourceString
+                | Edit _ -> Resource.Arguments_ItemEdit.ResourceString
+                | Delete _ -> Resource.Arguments_ItemDelete.ResourceString
+                | Increase _ -> Resource.Arguments_ItemIncrease.ResourceString
+                | Decrease _ -> Resource.Arguments_ItemDecrease.ResourceString
+                | List -> Resource.Arguments_ItemList.ResourceString
 
     type TagItemArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-e")>] Ean of string
@@ -44,8 +44,8 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | Ean _ -> "EAN of that item."
-                | Name _ -> "Name of tag."
+                | Ean _ -> Resource.Arguments_EAN.ResourceString
+                | Name _ -> Resource.Arguments_Name.ResourceString
 
     type TagArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-a")>] Add of ParseResults<TagItemArgs>
@@ -55,9 +55,9 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | Add _ -> "Add Tag to item with EAN."
-                | Remove _ -> "Remove Tag from item with EAN."
-                | List _ -> "Show all existing tags."
+                | Add _ -> Resource.Arguments_TagAdd.ResourceString
+                | Remove _ -> Resource.Arguments_TagRemove.ResourceString
+                | List _ -> Resource.Arguments_TagList.ResourceString
 
     type SettingsArgs =
         | [<CliPrefix(CliPrefix.None)>] SetPath of string
@@ -66,8 +66,8 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | SetPath _ -> "Sets the path to the inventory csv file (with filename)."
-                | GetPath -> "Gets the path to the inventory csv file that was set."
+                | SetPath _ -> Resource.Arguments_SetPath.ResourceString
+                | GetPath -> Resource.Arguments_GetPath.ResourceString
 
     [<DisableHelpFlags>]
     type CliArguments =
@@ -80,8 +80,8 @@ module Arguments =
         interface IArgParserTemplate with
             member this.Usage =
                 match this with 
-                | Item _ -> "Command of item."
-                | Tag _ ->  "Command of tags."
-                | Settings _ -> "Command of settings."
-                | Version -> "Displays the version of 'Inventory'."
-                | Help -> "Displays this help."
+                | Item _ -> Resource.Command_Item.ResourceString
+                | Tag _ ->  Resource.Command_Tag.ResourceString
+                | Settings _ -> Resource.Command_Settings.ResourceString
+                | Version -> Resource.Command_Version.ResourceString
+                | Help -> Resource.Command_Help.ResourceString

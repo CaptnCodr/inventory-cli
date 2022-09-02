@@ -22,6 +22,32 @@ module Resources =
         | TagCommand_RemovedTagFromItem
 
         | SettingCommand_PathSet
+
+        | Arguments_EAN
+        | Arguments_Name
+        | Arguments_Quantity
+        | Arguments_Description
+        | Arguments_Unit
+
+        | Arguments_ItemAdd
+        | Arguments_ItemEdit
+        | Arguments_ItemDelete
+        | Arguments_ItemIncrease
+        | Arguments_ItemDecrease
+        | Arguments_ItemList
+
+        | Arguments_TagAdd
+        | Arguments_TagRemove
+        | Arguments_TagList
+
+        | Arguments_SetPath
+        | Arguments_GetPath
+
+        | Command_Item
+        | Command_Tag
+        | Command_Settings
+        | Command_Version
+        | Command_Help
         
         member this.ResourceString = 
             this.ToString() 

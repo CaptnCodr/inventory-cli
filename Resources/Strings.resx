@@ -125,4 +125,67 @@
   <data name="SettingCommand_PathSet" xml:space="preserve">
     <value>Inventory is now at: '{0}'</value>
   </data>
+  <data name="Arguments_EAN" xml:space="preserve">
+    <value>EAN of that item.</value>
+  </data>
+  <data name="Arguments_Quantity" xml:space="preserve">
+    <value>Quantity of that item.</value>
+  </data>
+  <data name="Arguments_Description" xml:space="preserve">
+    <value>Description of that item.</value>
+  </data>
+  <data name="Arguments_Unit" xml:space="preserve">
+    <value>Unit/s of that item.</value>
+  </data>
+  <data name="Arguments_ItemAdd" xml:space="preserve">
+    <value>Adds an item.</value>
+  </data>
+  <data name="Arguments_ItemEdit" xml:space="preserve">
+    <value>Edits an item.</value>
+  </data>
+  <data name="Arguments_ItemDelete" xml:space="preserve">
+    <value>Deletes the product with the given EAN.</value>
+  </data>
+  <data name="Arguments_ItemIncrease" xml:space="preserve">
+    <value>Increases product's quantity by 1.</value>
+  </data>
+  <data name="Arguments_ItemDecrease" xml:space="preserve">
+    <value>Decreases product's quantity by 1.</value>
+  </data>
+  <data name="Arguments_ItemList" xml:space="preserve">
+    <value>Show all items.</value>
+  </data>
+  <data name="Arguments_Name" xml:space="preserve">
+    <value>Name of tag.</value>
+  </data>
+  <data name="Arguments_TagAdd" xml:space="preserve">
+    <value>Add Tag to item with EAN.</value>
+  </data>
+  <data name="Arguments_TagRemove" xml:space="preserve">
+    <value>Remove Tag from item with EAN.</value>
+  </data>
+  <data name="Arguments_TagList" xml:space="preserve">
+    <value>Show all existing tags.</value>
+  </data>
+  <data name="Arguments_SetPath" xml:space="preserve">
+    <value>Sets the path to the inventory csv file (with filename).</value>
+  </data>
+  <data name="Arguments_GetPath" xml:space="preserve">
+    <value>Gets the path to the inventory csv file that was set.</value>
+  </data>
+  <data name="Command_Item" xml:space="preserve">
+    <value>Command of item.</value>
+  </data>
+  <data name="Command_Tag" xml:space="preserve">
+    <value>Command of tags.</value>
+  </data>
+  <data name="Command_Settings" xml:space="preserve">
+    <value>Command of settings.</value>
+  </data>
+  <data name="Command_Version" xml:space="preserve">
+    <value>Displays the version of 'Inventory CLI'.</value>
+  </data>
+  <data name="Command_Help" xml:space="preserve">
+    <value>Displays this help.</value>
+  </data>
 </root>
