@@ -2,7 +2,44 @@
 
 Save your products in a list using your CLI.
 
-Type: `inv help` or `inv -h` for further information.
+##### Command tree of all (sub-) commands and parameters:
+```
+> inv [command] [subcommand] [parameter]
+
+[ item ]
++--[ add ]
+   +--[ ean ]
+   +--[ quantity ]
+   +--[ description ]
+   +--[ unit ]
++--[ edit ]
+   +--[ ean ]
+   +--[ quantity ]
+   +--[ description ]
+   +--[ unit ]
++--[ delete ]
++--[ increase ]
++--[ decrease ]
++--[ list ]
+
+[ tag ]
++--[ add ]
+   +--[ ean ]
+   +--[ name ]
++--[ remove ]
+   +--[ ean ]
+   +--[ name ]
++--[ list ]
+   +--[ tag ]
+
+[ settings ]
++--[ setpath ]
++--[ getpath ]
+
+[ version ]
+
+[ help ]
+```
 
 Configure your `inventory.csv` path with:
 `> inv settings setpath <PATH>`
