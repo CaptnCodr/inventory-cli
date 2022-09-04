@@ -60,7 +60,7 @@ module Arguments =
                 | List _ -> Resource.Arguments_TagList.ResourceString
 
     type SettingsArgs =
-        | [<CliPrefix(CliPrefix.None)>] SetPath of string
+        | [<CliPrefix(CliPrefix.None)>] SetPath of path: string
         | [<CliPrefix(CliPrefix.None)>] GetPath
 
         interface IArgParserTemplate with
