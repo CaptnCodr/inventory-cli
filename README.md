@@ -4,7 +4,7 @@ Save your products in a list using your CLI.
 
 ##### Command tree of all (sub-) commands and parameters:
 ```
-> inv [command | alias] [subcommand | alias] [parameter | alias]
+> inv [command | alias] [subcommand | alias] [parameter]
 
 [ item | -i ]
 +--[ add | -a ]
@@ -12,8 +12,8 @@ Save your products in a list using your CLI.
 |  +--[ quantity | -q ]
 |  +--[ description | -desc ]
 |  +--[ unit | -u ]
-+--[ edit | -e]
-|  +--[ ean | -e]
++--[ edit | -e ]
+|  +--[ ean | -e ]
 |  +--[ quantity | -q ]
 |  +--[ description | -desc ]
 |  +--[ unit | -u ]
