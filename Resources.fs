@@ -1,8 +1,6 @@
 ﻿namespace Inventory
 
-open System
-open System.Reflection
-open System.Resources
+open Extensions.ResourceExt
 
 module Resources =
 
@@ -50,8 +48,7 @@ module Resources =
         | Command_Help
         
         member this.ResourceString = 
-            this.ToString() 
-            |> ResourceManager(ResourceFile, Assembly.GetExecutingAssembly()).GetString
+            ResourceFile |> resourceManager |> getResourceString this
 
-        member this.FormattedString ([<ParamArray>] args) =
-            (this.ResourceString, args) |> String.Format
+        member this.FormattedString ([<System.ParamArray>] args) =
+            ResourceFile |> resourceManager |> getFormattedString this args

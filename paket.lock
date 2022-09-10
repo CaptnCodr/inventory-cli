@@ -1,33 +1,25 @@
+RESTRICTION: == net6.0
 NUGET
   remote: https://api.nuget.org/v3/index.json
     Argu (6.1.1)
-      FSharp.Core (>= 4.3.2) - restriction: >= netstandard2.0
-      System.Configuration.ConfigurationManager (>= 4.4) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.3.2)
+      System.Configuration.ConfigurationManager (>= 4.4)
     FSharp.Core (6.0.5)
     FSharp.Data (5.0.2)
-      FSharp.Core (>= 5.0.1) - restriction: >= netstandard2.0
-    Microsoft.NETCore.Platforms (6.0.5) - restriction: || (&& (>= net461) (>= netcoreapp2.0)) (&& (>= net461) (>= netcoreapp2.1)) (&& (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (>= netcoreapp2.1) (< netcoreapp3.0))
-    Microsoft.Win32.SystemEvents (6.0.1) - restriction: >= netcoreapp3.1
-    System.Buffers (4.5.1) - restriction: || (&& (>= monoandroid) (< netstandard1.1) (>= netstandard2.0)) (&& (< monoandroid) (< netstandard1.1) (>= netstandard2.0) (< win8)) (&& (>= monotouch) (>= netstandard2.0)) (&& (< net45) (< netcoreapp2.0) (>= netstandard2.0)) (&& (< net6.0) (>= netstandard2.0) (>= xamarintvos)) (&& (< net6.0) (>= netstandard2.0) (>= xamarinwatchos)) (&& (< net6.0) (>= xamarinios)) (&& (< net6.0) (>= xamarinmac)) (&& (< netstandard1.1) (>= netstandard2.0) (>= win8))
-    System.Configuration.ConfigurationManager (6.0) - restriction: >= netstandard2.0
-      System.Security.Cryptography.ProtectedData (>= 6.0) - restriction: || (&& (< net461) (>= netstandard2.0)) (>= net6.0)
-      System.Security.Permissions (>= 6.0) - restriction: || (>= net461) (>= netstandard2.0)
-    System.Drawing.Common (6.0) - restriction: >= netcoreapp3.1
-      Microsoft.Win32.SystemEvents (>= 6.0) - restriction: >= netcoreapp3.1
-    System.Memory (4.5.5) - restriction: && (< net461) (< net6.0) (>= netstandard2.0)
-      System.Buffers (>= 4.5.1) - restriction: || (&& (>= monoandroid) (< netstandard1.1)) (&& (< monoandroid) (< net45) (>= netstandard1.1) (< netstandard2.0) (< win8) (< wpa81)) (&& (< monoandroid) (< netstandard1.1) (>= portable-net45+win8+wpa81) (< win8)) (>= monotouch) (&& (>= net45) (< netstandard2.0)) (&& (< net45) (< netcoreapp2.0) (>= netstandard2.0)) (>= net461) (&& (< netstandard1.1) (>= win8)) (&& (< netstandard2.0) (< uap10.1) (>= wpa81)) (>= xamarinios) (>= xamarinmac) (>= xamarintvos) (>= xamarinwatchos)
-      System.Numerics.Vectors (>= 4.4) - restriction: && (< net45) (< netcoreapp2.0) (>= netstandard2.0) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos)
-      System.Runtime.CompilerServices.Unsafe (>= 4.5.3) - restriction: || (&& (>= monoandroid) (< netstandard1.1)) (&& (< monoandroid) (< net45) (>= netstandard1.1) (< netstandard2.0) (< win8) (< wpa81)) (&& (< monoandroid) (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (< monoandroid) (< netstandard1.1) (>= portable-net45+win8+wpa81) (< win8)) (>= monotouch) (&& (>= net45) (< netstandard2.0)) (&& (< net45) (< netcoreapp2.0) (>= netstandard2.0)) (>= net461) (&& (< netstandard1.1) (>= win8)) (&& (< netstandard2.0) (>= wpa81)) (>= uap10.1) (>= xamarinios) (>= xamarinmac) (>= xamarintvos) (>= xamarinwatchos)
-    System.Numerics.Vectors (4.5) - restriction: && (< net45) (< netcoreapp2.0) (>= netstandard2.0) (< xamarinios) (< xamarinmac) (< xamarintvos) (< xamarinwatchos)
-    System.Runtime.CompilerServices.Unsafe (6.0) - restriction: || (&& (>= monoandroid) (< netstandard1.1) (>= netstandard2.0)) (&& (< monoandroid) (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (< monoandroid) (< netstandard1.1) (>= netstandard2.0) (< win8)) (&& (>= monotouch) (>= netstandard2.0)) (&& (< net45) (< netcoreapp2.0) (>= netstandard2.0)) (&& (< net6.0) (>= netstandard2.0) (>= xamarintvos)) (&& (< net6.0) (>= netstandard2.0) (>= xamarinwatchos)) (&& (< net6.0) (>= xamarinios)) (&& (< net6.0) (>= xamarinmac)) (&& (< netstandard1.1) (>= netstandard2.0) (>= win8)) (&& (>= netstandard2.0) (>= uap10.1))
-    System.Security.AccessControl (6.0) - restriction: >= netstandard2.0
-      System.Security.Principal.Windows (>= 5.0) - restriction: || (>= net461) (&& (< net6.0) (>= netstandard2.0))
-    System.Security.Cryptography.ProtectedData (6.0) - restriction: || (&& (< net461) (>= netstandard2.0)) (>= net6.0)
-      System.Memory (>= 4.5.4) - restriction: && (< net461) (< net6.0) (>= netstandard2.0)
-    System.Security.Permissions (6.0) - restriction: >= netstandard2.0
-      System.Security.AccessControl (>= 6.0) - restriction: || (>= net461) (>= netstandard2.0)
-      System.Windows.Extensions (>= 6.0) - restriction: >= netcoreapp3.1
-    System.Security.Principal.Windows (5.0) - restriction: || (&& (>= net461) (>= netstandard2.0)) (&& (< net6.0) (>= netstandard2.0))
-      Microsoft.NETCore.Platforms (>= 5.0) - restriction: || (&& (>= netcoreapp2.0) (< netcoreapp2.1)) (&& (>= netcoreapp2.1) (< netcoreapp3.0))
-    System.Windows.Extensions (6.0) - restriction: >= netcoreapp3.1
-      System.Drawing.Common (>= 6.0) - restriction: >= netcoreapp3.1
+      FSharp.Core (>= 5.0.1)
+    Microsoft.Win32.SystemEvents (6.0.1)
+    System.Configuration.ConfigurationManager (6.0)
+      System.Security.Cryptography.ProtectedData (>= 6.0)
+      System.Security.Permissions (>= 6.0)
+    System.Drawing.Common (6.0)
+      Microsoft.Win32.SystemEvents (>= 6.0)
+    System.Security.AccessControl (6.0)
+    System.Security.Cryptography.ProtectedData (6.0)
+    System.Security.Permissions (6.0)
+      System.Security.AccessControl (>= 6.0)
+      System.Windows.Extensions (>= 6.0)
+    System.Windows.Extensions (6.0)
+      System.Drawing.Common (>= 6.0)
+GITHUB
+  remote: CaptnCodr/FSharpExtensions
+    ResourceExtension.fs (d5e119b4036c3c96aaf886467df3c6e5399790fd)

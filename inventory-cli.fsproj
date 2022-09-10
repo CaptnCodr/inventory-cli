@@ -12,14 +12,17 @@
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
     <None Include="Data\sample.csv" />
-    <None Include="paket.dependencies" />
-    <None Include="paket.lock" />
-    <None Include="paket.references" />
+    <Compile Include="paket-files\CaptnCodr\FSharpExtensions\ResourceExtension.fs">
+      <Paket>True</Paket>
+      <Link>ResourceExtension.fs</Link>
+    </Compile>
     <Compile Include="Resources.fs" />
     <Compile Include="Arguments.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Inventory.fs" />
     <Compile Include="Program.fs" />
+    <None Include="paket.dependencies" />
+    <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="6.0.5" />
