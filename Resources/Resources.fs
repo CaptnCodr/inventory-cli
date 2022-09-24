@@ -14,7 +14,7 @@ module Resources =
         | ItemCommand_ItemEdited
         | ItemCommand_IncreaseDecrease
         | ItemCommand_ItemDeleted
-        
+
         | TagCommand_AddedTagToItem
         | TagCommand_ItemsWithTag
         | TagCommand_RemovedTagFromItem
@@ -46,9 +46,8 @@ module Resources =
         | Command_Settings
         | Command_Version
         | Command_Help
-        
-        member this.ResourceString = 
-            ResourceFile |> resourceManager |> getResourceString this
 
-        member this.FormattedString ([<System.ParamArray>] args) =
+        member this.ResourceString = ResourceFile |> resourceManager |> getResourceString this
+
+        member this.FormattedString([<System.ParamArray>] args) =
             ResourceFile |> resourceManager |> getFormattedString this args

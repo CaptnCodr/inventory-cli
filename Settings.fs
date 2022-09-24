@@ -11,6 +11,6 @@ module Settings =
         Environment.SetEnvironmentVariable(InventoryPath, path, EnvironmentVariableTarget.User)
 
     let getInventoryPath () =
-        (Environment.GetEnvironmentVariable(InventoryPath, EnvironmentVariableTarget.User) : string)
-        |> Option.ofObj 
+        (Environment.GetEnvironmentVariable(InventoryPath, EnvironmentVariableTarget.User): string)
+        |> Option.ofObj
         |> Option.defaultValue ""

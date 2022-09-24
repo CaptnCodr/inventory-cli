@@ -25,7 +25,7 @@
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FSharp.Core" Version="6.0.5" />
+    <PackageReference Include="FSharp.Core" Version="6.0.6" />
     <PackageReference Include="FSharp.Data" Version="5.0.2" />
     <PackageReference Include="Argu" Version="6.1.1" />
   </ItemGroup>
