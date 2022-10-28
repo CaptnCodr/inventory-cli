@@ -10,6 +10,7 @@ module Arguments =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-q")>] Quantity of int option
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-desc")>] Description of string option
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-u")>] Unit of string option
+        | [<CliPrefix(CliPrefix.None); AltCommandLine("-p")>] Price of decimal option
 
         interface IArgParserTemplate with
             member this.Usage =
@@ -18,6 +19,7 @@ module Arguments =
                 | Quantity _ -> Resource.Arguments_Quantity.ResourceString
                 | Description _ -> Resource.Arguments_Description.ResourceString
                 | Unit _ -> Resource.Arguments_Unit.ResourceString
+                | Price _ -> Resource.Arguments_Price.ResourceString
 
     type ItemArgs =
         | [<CliPrefix(CliPrefix.None); AltCommandLine("-a")>] Add of ParseResults<InventoryItemArgs>

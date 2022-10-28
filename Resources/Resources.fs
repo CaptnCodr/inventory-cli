@@ -26,6 +26,7 @@ module Resources =
         | Arguments_Quantity
         | Arguments_Description
         | Arguments_Unit
+        | Arguments_Price
 
         | Arguments_ItemAdd
         | Arguments_ItemEdit

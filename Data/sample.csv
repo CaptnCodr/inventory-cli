@@ -1,2 +1,2 @@
-﻿Ean(string);Qty;Description;Tags;Unit
-"1234567891013";2;"Das ist ein Produkt";"tag1","tag2";"500g/pkg"
+﻿Ean(string);Qty;Description;Tags;Unit;Price
+"1234567891013";2;"Das ist ein Produkt";"tag1","tag2";"500g/pkg";143.12

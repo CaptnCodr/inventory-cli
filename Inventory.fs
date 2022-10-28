@@ -11,7 +11,8 @@ type InventoryItem =
     { Ean: string
       Description: string
       Quantity: int
-      Unit: string }
+      Unit: string
+      Price: decimal }
 
 [<AutoOpen>]
 module Inventory =
@@ -24,15 +25,6 @@ module Inventory =
     let inline (-&-) f s = (f, s)
 
     /// <summary>
-    /// Splits the quadruple and passes it into the given function.
-    /// </summary>
-    /// <param name="q">Tuple of 4 elements (quadruple).</param>
-    /// <param name="f">Function that takes 4 arguments.</param>
-    let inline (||||>) q f =
-        let (a, b, c, d) = q
-        f a b c d
-
-    /// <summary>
     /// Splits the quintuple and passes it into the given function.
     /// </summary>
     /// <param name="q">Tuple of 5 elements (quintuple).</param>
@@ -40,6 +32,15 @@ module Inventory =
     let inline (|||||>) q f =
         let (a, b, c, d, e) = q
         f a b c d e
+
+    /// <summary>
+    /// Splits the sextuple and passes it into the given function.
+    /// </summary>
+    /// <param name="q">Tuple of 6 elements (sextuple).</param>
+    /// <param name="f">Function that takes 6 arguments.</param>
+    let inline (||||||>) q f =
+        let (a, b, c, d, e, g) = q
+        f a b c d e g
 
     let loadInventory () =
         Settings.getInventoryPath () |> Inventory.Load
@@ -49,8 +50,8 @@ module Inventory =
 
     let addItem (item: Inventory.Row) (inv: CsvFile<Inventory.Row>) = inv.Append [ item ]
 
-    let createItem ean quantity description tags unit =
-        Inventory.Row(ean, quantity, description, tags, unit)
+    let createItem ean quantity description tags unit price =
+        Inventory.Row(ean, quantity, description, tags, unit, price)
 
     let filterWithEan ean (provider: Inventory) =
         provider.Filter(fun item -> item.Ean = ean)
@@ -70,14 +71,16 @@ module Inventory =
             let flattened =
                 (loadInventory () |> filterWithEan data.Ean).Rows
                 |> Seq.toArray
-                |> Array.append [| Inventory.Row(data.Ean, data.Quantity, data.Description, "", data.Unit) |]
+                |> Array.append
+                    [| Inventory.Row(data.Ean, data.Quantity, data.Description, "", data.Unit, data.Price) |]
 
             (flattened.[0].Ean,
              (flattened |> Array.map (fun r -> r.Qty) |> Array.sum),
              flattened.[0].Description,
              flattened.[0].Tags,
-             flattened.[0].Unit)
-            |||||> createItem
+             flattened.[0].Unit,
+             flattened.[0].Price)
+            ||||||> createItem
             |> (-&-) data.Ean
             ||> filterItemSaveWithNew
 
@@ -85,18 +88,25 @@ module Inventory =
 
         let listItems () =
             loadInventory().Rows
-            |> Seq.map (fun r -> ItemCommand_ItemsList.FormattedString(r.Qty, r.Description, r.Ean, r.Tags, r.Unit))
+            |> Seq.map (fun r -> ItemCommand_ItemsList.FormattedString(r.Qty, r.Description, r.Ean, r.Tags, r.Unit, r.Price))
             |> String.concat Environment.NewLine
 
-        let editItem (ean: string) (qty: int option) (description: string option) (unit: string option) =
+        let editItem
+            (ean: string)
+            (qty: int option)
+            (description: string option)
+            (unit: string option)
+            (price: decimal option)
+            =
             let item = ean |> filterItemWithMatchingEan
 
             (item.Ean,
              (qty |> Option.defaultValue item.Qty),
              (description |> Option.defaultValue item.Description),
              item.Tags,
-             (unit |> Option.defaultValue item.Unit))
-            |||||> createItem
+             (unit |> Option.defaultValue item.Unit),
+             (price |> Option.defaultValue item.Price))
+            ||||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
@@ -105,8 +115,8 @@ module Inventory =
         let increaseDecreaseQty (change: int) (ean: string) =
             let item = ean |> filterItemWithMatchingEan
 
-            (item.Ean, (item.Qty + change), item.Description, item.Tags, item.Unit)
-            |||||> createItem
+            (item.Ean, (item.Qty + change), item.Description, item.Tags, item.Unit, item.Price)
+            ||||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
@@ -139,7 +149,8 @@ module Inventory =
                 |> Array.distinct
                 |> String.concat ","
 
-            (item.Ean, item.Qty, item.Description, itemTags, item.Unit) |||||> createItem
+            (item.Ean, item.Qty, item.Description, itemTags, item.Unit, item.Price)
+            ||||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 
@@ -161,7 +172,8 @@ module Inventory =
                 |> Array.filter (fun t -> t <> tag)
                 |> String.concat ","
 
-            (item.Ean, item.Qty, item.Description, itemTags, item.Unit) |||||> createItem
+            (item.Ean, item.Qty, item.Description, itemTags, item.Unit, item.Price)
+            ||||||> createItem
             |> (-&-) item.Ean
             ||> filterItemSaveWithNew
 

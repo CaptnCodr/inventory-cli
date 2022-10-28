@@ -35,10 +35,17 @@ module Program =
                         |> (-&-) ""
                         ||> Option.defaultValue
 
+                    let price =
+                        a.TryGetResult(InventoryItemArgs.Price)
+                        |> Option.bind id
+                        |> (-&-) 0.0m
+                        ||> Option.defaultValue
+
                     { Ean = ean
                       Description = desc
                       Quantity = qty
-                      Unit = unit }
+                      Unit = unit
+                      Price = price }
                     |> ItemCommands.appendItem
                 else
                     parser.PrintUsage()
@@ -47,8 +54,9 @@ module Program =
                 (e.GetResult(InventoryItemArgs.Ean),
                  e.TryGetResult(InventoryItemArgs.Quantity) |> Option.bind id,
                  e.TryGetResult(InventoryItemArgs.Description) |> Option.bind id,
-                 e.TryGetResult(InventoryItemArgs.Unit) |> Option.bind id)
-                ||||> ItemCommands.editItem
+                 e.TryGetResult(InventoryItemArgs.Unit) |> Option.bind id,
+                 e.TryGetResult(InventoryItemArgs.Price) |> Option.bind id)
+                |||||> ItemCommands.editItem
 
             | [ ItemArgs.Delete d ] -> d |> ItemCommands.deleteItem
 
