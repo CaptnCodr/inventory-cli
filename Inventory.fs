@@ -88,7 +88,8 @@ module Inventory =
 
         let listItems () =
             loadInventory().Rows
-            |> Seq.map (fun r -> ItemCommand_ItemsList.FormattedString(r.Qty, r.Description, r.Ean, r.Tags, r.Unit, r.Price))
+            |> Seq.map (fun r ->
+                ItemCommand_ItemsList.FormattedString(r.Qty, r.Description, r.Ean, r.Tags, r.Unit, r.Price))
             |> String.concat Environment.NewLine
 
         let editItem

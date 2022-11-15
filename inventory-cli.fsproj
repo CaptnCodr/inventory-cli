@@ -3,11 +3,11 @@
   <PropertyGroup>
     <AssemblyName>inv</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>true</PublishTrimmed>
-    <Version>0.4.0.0</Version>
+    <Version>0.5.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
